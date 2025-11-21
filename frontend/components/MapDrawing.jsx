@@ -2,17 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react';
 import { Loader } from '@googlemaps/js-api-loader';
-import { calculatePolygonArea, formatArea, Coordinate } from '@/lib/area-calculator';
+import { calculatePolygonArea, formatArea } from '@/lib/area-calculator';
 
-interface MapDrawingProps {
-  onBoundaryChange: (coordinates: Coordinate[]) => void;
-}
-
-export default function MapDrawing({ onBoundaryChange }: MapDrawingProps) {
-  const mapRef = useRef<HTMLDivElement>(null);
-  const [map, setMap] = useState<any>(null);
-  const [drawingManager, setDrawingManager] = useState<any>(null);
-  const [currentPolygon, setCurrentPolygon] = useState<any>(null);
+export default function MapDrawing({ onBoundaryChange }) {
+  const mapRef = useRef(null);
+  const [map, setMap] = useState(null);
+  const [drawingManager, setDrawingManager] = useState(null);
+  const [currentPolygon, setCurrentPolygon] = useState(null);
   const [area, setArea] = useState({ sq_feet: 0, sq_yards: 0, guntas: 0, acres: 0 });
 
   useEffect(() => {
@@ -36,11 +32,11 @@ export default function MapDrawing({ onBoundaryChange }: MapDrawingProps) {
         });
 
         const drawingManagerInstance = new DrawingManager({
-          drawingMode: (window as any).google.maps.drawing.OverlayType.POLYGON,
+          drawingMode: window.google.maps.drawing.OverlayType.POLYGON,
           drawingControl: true,
           drawingControlOptions: {
-            position: (window as any).google.maps.ControlPosition.TOP_CENTER,
-            drawingModes: [(window as any).google.maps.drawing.OverlayType.POLYGON],
+            position: window.google.maps.ControlPosition.TOP_CENTER,
+            drawingModes: [window.google.maps.drawing.OverlayType.POLYGON],
           },
           polygonOptions: {
             fillColor: '#00FF00',
@@ -54,7 +50,7 @@ export default function MapDrawing({ onBoundaryChange }: MapDrawingProps) {
 
         drawingManagerInstance.setMap(mapInstance);
 
-        (window as any).google.maps.event.addListener(drawingManagerInstance, 'polygoncomplete', (polygon: any) => {
+        window.google.maps.event.addListener(drawingManagerInstance, 'polygoncomplete', (polygon) => {
           if (currentPolygon) {
             currentPolygon.setMap(null);
           }
@@ -63,9 +59,9 @@ export default function MapDrawing({ onBoundaryChange }: MapDrawingProps) {
           drawingManagerInstance.setDrawingMode(null);
           updateCoordinates(polygon);
 
-          (window as any).google.maps.event.addListener(polygon.getPath(), 'set_at', () => updateCoordinates(polygon));
-          (window as any).google.maps.event.addListener(polygon.getPath(), 'insert_at', () => updateCoordinates(polygon));
-          (window as any).google.maps.event.addListener(polygon.getPath(), 'remove_at', () => updateCoordinates(polygon));
+          window.google.maps.event.addListener(polygon.getPath(), 'set_at', () => updateCoordinates(polygon));
+          window.google.maps.event.addListener(polygon.getPath(), 'insert_at', () => updateCoordinates(polygon));
+          window.google.maps.event.addListener(polygon.getPath(), 'remove_at', () => updateCoordinates(polygon));
         });
 
         setMap(mapInstance);
@@ -78,9 +74,9 @@ export default function MapDrawing({ onBoundaryChange }: MapDrawingProps) {
     initMap();
   }, []);
 
-  const updateCoordinates = (polygon: any) => {
+  const updateCoordinates = (polygon) => {
     const path = polygon.getPath();
-    const coords: Coordinate[] = [];
+    const coords = [];
 
     for (let i = 0; i < path.getLength(); i++) {
       const point = path.getAt(i);

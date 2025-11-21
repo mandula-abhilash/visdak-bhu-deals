@@ -4,18 +4,13 @@ export const AREA_CONVERSIONS = {
   SQ_FEET_TO_ACRES: 1 / 43560,
 };
 
-export interface Coordinate {
-  lat: number;
-  lng: number;
-}
-
-export function calculatePolygonArea(coordinates: Coordinate[]): number {
+export function calculatePolygonArea(coordinates) {
   if (!coordinates || coordinates.length < 3) {
     return 0;
   }
 
   const earthRadius = 6371000;
-  const toRadians = (degrees: number) => degrees * (Math.PI / 180);
+  const toRadians = (degrees) => degrees * (Math.PI / 180);
 
   let area = 0;
   const points = coordinates.map(coord => ({
@@ -35,7 +30,7 @@ export function calculatePolygonArea(coordinates: Coordinate[]): number {
   return areaInSqFeet;
 }
 
-export function formatArea(sqFeet: number) {
+export function formatArea(sqFeet) {
   return {
     sq_feet: Math.round(sqFeet * 100) / 100,
     sq_yards: Math.round(sqFeet * AREA_CONVERSIONS.SQ_FEET_TO_SQ_YARDS * 100) / 100,
@@ -44,7 +39,7 @@ export function formatArea(sqFeet: number) {
   };
 }
 
-export function calculateDistance(lat1: number, lng1: number, lat2: number, lng2: number): number {
+export function calculateDistance(lat1, lng1, lat2, lng2) {
   const R = 6371;
   const dLat = (lat2 - lat1) * Math.PI / 180;
   const dLng = (lng2 - lng1) * Math.PI / 180;
@@ -56,7 +51,7 @@ export function calculateDistance(lat1: number, lng1: number, lat2: number, lng2
   return R * c;
 }
 
-export function formatDistance(km: number): string {
+export function formatDistance(km) {
   if (km < 1) {
     return `${Math.round(km * 1000)} meters`;
   }

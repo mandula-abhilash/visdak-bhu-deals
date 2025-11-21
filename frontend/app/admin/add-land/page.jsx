@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { useAuth } from '@/lib/auth-context';
 import MapDrawing from '@/components/MapDrawing';
 import { landAPI, uploadAPI } from '@/lib/api';
-import { Coordinate } from '@/lib/area-calculator';
 
 export default function AddLandPage() {
   const { isAuthenticated, isAdmin } = useAuth();
@@ -24,23 +23,23 @@ export default function AddLandPage() {
     contact_info: '',
   });
 
-  const [boundary, setBoundary] = useState<Coordinate[]>([]);
+  const [boundary, setBoundary] = useState([]);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
-  const [createdLandId, setCreatedLandId] = useState<number | null>(null);
-  const [photoFiles, setPhotoFiles] = useState<FileList | null>(null);
-  const [documentFiles, setDocumentFiles] = useState<FileList | null>(null);
+  const [createdLandId, setCreatedLandId] = useState(null);
+  const [photoFiles, setPhotoFiles] = useState(null);
+  const [documentFiles, setDocumentFiles] = useState(null);
 
   if (!isAuthenticated || !isAdmin) {
     router.push('/login');
     return null;
   }
 
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
+  const handleInputChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
 
@@ -64,7 +63,7 @@ export default function AddLandPage() {
 
       alert('Land created successfully!');
       setCreatedLandId(result.land.id);
-    } catch (err: any) {
+    } catch (err) {
       setError(err.message || 'Failed to create land');
     } finally {
       setLoading(false);

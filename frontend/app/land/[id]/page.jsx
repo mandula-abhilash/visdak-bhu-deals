@@ -7,16 +7,10 @@ import { useAuth } from '@/lib/auth-context';
 import { Lock, MapPin } from 'lucide-react';
 import Script from 'next/script';
 
-declare global {
-  interface Window {
-    Razorpay: any;
-  }
-}
-
 export default function LandDetailPage() {
   const params = useParams();
   const { isAuthenticated } = useAuth();
-  const [land, setLand] = useState<any>(null);
+  const [land, setLand] = useState(null);
   const [hasAccess, setHasAccess] = useState(false);
   const [loading, setLoading] = useState(true);
 
@@ -26,11 +20,11 @@ export default function LandDetailPage() {
 
   const loadLandDetails = async () => {
     try {
-      const result = await landAPI.getById(params.id as string);
+      const result = await landAPI.getById(params.id);
       setLand(result.land);
 
       if (isAuthenticated) {
-        const accessResult = await paymentAPI.checkLandAccess(params.id as string);
+        const accessResult = await paymentAPI.checkLandAccess(params.id);
         if (accessResult.hasAccess) {
           setHasAccess(true);
           loadFullDetails();
@@ -45,7 +39,7 @@ export default function LandDetailPage() {
 
   const loadFullDetails = async () => {
     try {
-      const result = await landAPI.getFullDetails(params.id as string);
+      const result = await landAPI.getFullDetails(params.id);
       setLand(result.land);
     } catch (error) {
       console.error('Error loading full details:', error);
@@ -62,7 +56,7 @@ export default function LandDetailPage() {
         name: 'Land Listings',
         description: 'Monthly Subscription',
         order_id: result.order_id,
-        handler: async (response: any) => {
+        handler: async (response) => {
           await paymentAPI.verifyPayment({
             razorpay_order_id: response.razorpay_order_id,
             razorpay_payment_id: response.razorpay_payment_id,
@@ -82,7 +76,7 @@ export default function LandDetailPage() {
 
   const handlePurchase = async () => {
     try {
-      const result = await paymentAPI.createSitePurchaseOrder(params.id as string);
+      const result = await paymentAPI.createSitePurchaseOrder(params.id);
       const options = {
         key: process.env.NEXT_PUBLIC_RAZORPAY_KEY_ID,
         amount: result.amount,
@@ -90,7 +84,7 @@ export default function LandDetailPage() {
         name: 'Land Listings',
         description: 'Site Access Purchase',
         order_id: result.order_id,
-        handler: async (response: any) => {
+        handler: async (response) => {
           await paymentAPI.verifyPayment({
             razorpay_order_id: response.razorpay_order_id,
             razorpay_payment_id: response.razorpay_payment_id,

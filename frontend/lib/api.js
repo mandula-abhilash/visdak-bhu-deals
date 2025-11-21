@@ -9,33 +9,33 @@ function getAuthHeaders() {
 }
 
 export const landAPI = {
-  async getAll(filters: any = {}) {
+  async getAll(filters = {}) {
     const queryParams = new URLSearchParams(filters).toString();
     const url = `${API_BASE_URL}/lands${queryParams ? '?' + queryParams : ''}`;
     const response = await fetch(url);
     return await response.json();
   },
 
-  async getById(id: string) {
+  async getById(id) {
     const response = await fetch(`${API_BASE_URL}/lands/${id}`);
     return await response.json();
   },
 
-  async getFullDetails(id: string) {
+  async getFullDetails(id) {
     const response = await fetch(`${API_BASE_URL}/lands/${id}/full`, {
       headers: getAuthHeaders(),
     });
     return await response.json();
   },
 
-  async searchByRadius(lat: number, lng: number, radius: number) {
+  async searchByRadius(lat, lng, radius) {
     const response = await fetch(
       `${API_BASE_URL}/lands/search/radius?lat=${lat}&lng=${lng}&radius=${radius}`
     );
     return await response.json();
   },
 
-  async create(landData: any) {
+  async create(landData) {
     const response = await fetch(`${API_BASE_URL}/lands`, {
       method: 'POST',
       headers: getAuthHeaders(),
@@ -44,7 +44,7 @@ export const landAPI = {
     return await response.json();
   },
 
-  async update(id: string, landData: any) {
+  async update(id, landData) {
     const response = await fetch(`${API_BASE_URL}/lands/${id}`, {
       method: 'PUT',
       headers: getAuthHeaders(),
@@ -53,7 +53,7 @@ export const landAPI = {
     return await response.json();
   },
 
-  async delete(id: string) {
+  async delete(id) {
     const response = await fetch(`${API_BASE_URL}/lands/${id}`, {
       method: 'DELETE',
       headers: getAuthHeaders(),
@@ -63,7 +63,7 @@ export const landAPI = {
 };
 
 export const uploadAPI = {
-  async uploadPhotos(landId: number, files: File[]) {
+  async uploadPhotos(landId, files) {
     const formData = new FormData();
     formData.append('land_id', landId.toString());
 
@@ -82,7 +82,7 @@ export const uploadAPI = {
     return await response.json();
   },
 
-  async uploadDocuments(landId: number, files: File[]) {
+  async uploadDocuments(landId, files) {
     const formData = new FormData();
     formData.append('land_id', landId.toString());
 
@@ -103,7 +103,7 @@ export const uploadAPI = {
 };
 
 export const paymentAPI = {
-  async createSubscriptionOrder(planType: string) {
+  async createSubscriptionOrder(planType) {
     const response = await fetch(`${API_BASE_URL}/payment/create-subscription`, {
       method: 'POST',
       headers: getAuthHeaders(),
@@ -112,7 +112,7 @@ export const paymentAPI = {
     return await response.json();
   },
 
-  async createSitePurchaseOrder(landId: string) {
+  async createSitePurchaseOrder(landId) {
     const response = await fetch(`${API_BASE_URL}/payment/create-site-order`, {
       method: 'POST',
       headers: getAuthHeaders(),
@@ -121,7 +121,7 @@ export const paymentAPI = {
     return await response.json();
   },
 
-  async verifyPayment(paymentData: any) {
+  async verifyPayment(paymentData) {
     const response = await fetch(`${API_BASE_URL}/payment/verify`, {
       method: 'POST',
       headers: getAuthHeaders(),
@@ -130,7 +130,7 @@ export const paymentAPI = {
     return await response.json();
   },
 
-  async checkLandAccess(landId: string) {
+  async checkLandAccess(landId) {
     const response = await fetch(`${API_BASE_URL}/payment/access/${landId}`, {
       headers: getAuthHeaders(),
     });
