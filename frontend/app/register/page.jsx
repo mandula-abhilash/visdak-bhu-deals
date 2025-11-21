@@ -51,7 +51,7 @@ export default function RegisterPage() {
           <div className="bg-gradient-to-br from-emerald-600 to-teal-600 p-4 rounded-2xl mb-6 shadow-2xl shadow-emerald-500/50">
             <MapPin className="w-12 h-12 text-white" strokeWidth={2.5} />
           </div>
-          <h2 className="text-4xl font-black text-white mb-4">Join LandScape</h2>
+          <h2 className="text-4xl font-black text-white mb-4">Join BhuDeals</h2>
           <p className="text-xl text-slate-300 max-w-md">
             Create your account and get instant access to thousands of premium land listings.
           </p>

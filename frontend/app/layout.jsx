@@ -15,7 +15,7 @@ const lato = Lato({
 });
 
 export const metadata = {
-  title: 'LandScape - Premium Land Marketplace',
+  title: 'BhuDeals - Premium Land Marketplace',
   description: 'Browse premium agricultural and commercial properties with detailed maps and measurements',
 };
 
@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
           </main>
           <footer className="bg-slate-900 text-white py-12">
             <div className="container mx-auto px-6 text-center">
-              <p className="text-slate-400">&copy; 2024 LandScape. All rights reserved.</p>
+              <p className="text-slate-400">&copy; 2024 BhuDeals. All rights reserved.</p>
             </div>
           </footer>
         </AuthProvider>
