@@ -1,0 +1,45 @@
+{
+  "name": "land-listing-platform",
+  "version": "1.0.0",
+  "description": "Land listing platform with map drawing and measurement tools",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev:backend": "node backend/server.js",
+    "dev:frontend": "cd frontend && next dev",
+    "build": "cd frontend && next build",
+    "start": "concurrently \"node backend/server.js\" \"cd frontend && next start\"",
+    "start:backend": "node backend/server.js",
+    "start:frontend": "cd frontend && next start"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "pg": "^8.11.3",
+    "bcrypt": "^5.1.1",
+    "jsonwebtoken": "^9.0.2",
+    "dotenv": "^16.3.1",
+    "cors": "^2.8.5",
+    "helmet": "^7.1.0",
+    "express-rate-limit": "^7.1.5",
+    "multer": "^1.4.5-lts.1",
+    "aws-sdk": "^2.1505.0",
+    "razorpay": "^2.9.2",
+    "nodemailer": "^6.9.7",
+    "next": "^14.2.15",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "@googlemaps/js-api-loader": "^1.16.8",
+    "lucide-react": "^0.454.0"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "typescript": "^5.6.3",
+    "@types/node": "^22.7.9",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "tailwindcss": "^3.4.14",
+    "postcss": "^8.4.47",
+    "autoprefixer": "^10.4.20",
+    "eslint": "^8.57.1",
+    "eslint-config-next": "^14.2.15"
+  }
+}
