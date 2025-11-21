@@ -25,10 +25,10 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen">
-      <section className="relative min-h-[700px] overflow-hidden bg-gradient-to-br from-[#2F4F32] via-[#1F2F36] to-[#4D3D34]">
+      <section className="relative min-h-[700px] overflow-hidden bg-gradient-to-br from-[#2F4F32] via-[#1F2F36] to-[#4D3D34] pb-24">
         <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxwYXRoIGQ9Ik0zNiAxOGMzLjMxIDAgNiAyLjY5IDYgNnMtMi42OSA2LTYgNi02LTIuNjktNi02IDIuNjktNiA2LTZ6TTI0IDM2YzMuMzEgMCA2IDIuNjkgNiA2cy0yLjY5IDYtNiA2LTYtMi42OS02LTYgMi42OS02IDYtNnoiIHN0cm9rZT0iIzkwQjc3RCIgc3Ryb2tlLXdpZHRoPSIwLjUiIG9wYWNpdHk9IjAuMSIvPjwvZz48L3N2Zz4=')] opacity-20"></div>
 
-        <div className="container mx-auto px-6 py-24 relative z-10">
+        <div className="container mx-auto px-6 pt-24 pb-32 relative z-10">
           <div className="max-w-5xl mx-auto text-center">
             <div className="inline-flex items-center space-x-2 bg-[#90B77D]/10 backdrop-blur-sm border border-[#90B77D]/20 rounded-full px-5 py-2 mb-6">
               <Sparkles className="w-4 h-4 text-[#C6AB62]" />
@@ -57,16 +57,15 @@ export default function HomePage() {
             </div>
 
             <Link href="#submit-requirement" className="inline-flex items-center text-[#90B77D] hover:text-[#C6AB62] transition-colors font-medium">
-              <ArrowRight className="w-4 h-4 mr-2" />
-              Submit Your Requirement → Let's Find You the Right Land
+              Can't Find What You're Looking For?
+              <ArrowRight className="w-4 h-4 ml-2" />
             </Link>
           </div>
         </div>
 
-        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[#F4EFE2] to-transparent"></div>
       </section>
 
-      <section className="py-24 bg-[#F4EFE2] relative">
+      <section className="py-24 bg-[#F4EFE2] relative -mt-16">
         <div className="container mx-auto px-6">
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-black text-[#2F4F32] mb-4">
