@@ -4,22 +4,28 @@
 
 @layer base {
   body {
-    @apply bg-slate-50 text-slate-900 antialiased;
+    @apply bg-[#F4EFE2] antialiased;
+    color: #111111;
     font-family: var(--font-inter), system-ui, -apple-system, sans-serif;
   }
 
   h1, h2, h3, h4, h5, h6 {
     font-family: var(--font-lato), system-ui, -apple-system, sans-serif;
+    color: #2F4F32;
   }
 }
 
 @layer components {
   .btn-primary {
-    @apply px-8 py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold rounded-xl transition-all duration-300 hover:shadow-xl hover:shadow-emerald-500/20 hover:-translate-y-0.5 active:scale-95;
+    @apply px-8 py-3.5 bg-[#C6AB62] hover:bg-[#b39952] font-semibold rounded-xl transition-all duration-300 hover:shadow-xl hover:-translate-y-0.5 active:scale-95;
+    color: #111111;
+    box-shadow: 0 4px 14px 0 rgba(198, 171, 98, 0.2);
   }
 
   .btn-secondary {
-    @apply px-8 py-3.5 bg-white border-2 border-slate-800 text-slate-800 hover:bg-slate-800 hover:text-white font-semibold rounded-xl transition-all duration-300 active:scale-95;
+    @apply px-8 py-3.5 bg-white border-2 hover:bg-[#2F4F32] hover:text-white font-semibold rounded-xl transition-all duration-300 active:scale-95;
+    border-color: #2F4F32;
+    color: #2F4F32;
   }
 
   .btn-outline {
@@ -27,22 +33,37 @@
   }
 
   .card {
-    @apply bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl border border-slate-100;
+    @apply bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-500 hover:-translate-y-2 hover:shadow-2xl;
+    border: 1px solid rgba(144, 183, 125, 0.2);
   }
 
   .input-field {
-    @apply w-full px-5 py-3.5 border-2 border-slate-200 rounded-xl focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 transition-all duration-200 bg-white text-slate-900;
+    @apply w-full px-5 py-3.5 border-2 rounded-xl focus:outline-none focus:ring-2 transition-all duration-200 bg-white;
+    border-color: #90B77D;
+    color: #111111;
+  }
+
+  .input-field:focus {
+    border-color: #C6AB62;
+    ring-color: #C6AB62;
   }
 
   .label {
-    @apply block text-sm font-bold text-slate-800 mb-2 tracking-wide uppercase;
+    @apply block text-sm font-bold mb-2 tracking-wide uppercase;
+    color: #2F4F32;
   }
 
   .feature-card {
-    @apply bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-500 border border-slate-100 hover:border-emerald-200;
+    @apply bg-white rounded-2xl p-8 shadow-sm hover:shadow-xl transition-all duration-500;
+    border: 1px solid rgba(144, 183, 125, 0.2);
+  }
+
+  .feature-card:hover {
+    border-color: #C6AB62;
   }
 
   .gradient-overlay {
-    @apply absolute inset-0 bg-gradient-to-t from-slate-900/90 via-slate-900/40 to-transparent;
+    @apply absolute inset-0 bg-gradient-to-t to-transparent;
+    background: linear-gradient(to top, rgba(47, 79, 50, 0.9), rgba(47, 79, 50, 0.4), transparent);
   }
 }
