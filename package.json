@@ -3,7 +3,8 @@
   "version": "1.0.0",
   "description": "Land listing platform with map drawing and measurement tools",
   "scripts": {
-    "dev": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
+    "dev": "cd frontend && next dev",
+    "dev:both": "concurrently \"npm run dev:backend\" \"npm run dev:frontend\"",
     "dev:backend": "node backend/server.js",
     "dev:frontend": "cd frontend && next dev",
     "build": "cd frontend && next build",
