@@ -1,68 +1,119 @@
-# Land Listing Platform
+# BhuDeals - Smart Land Listing Platform
 
-A comprehensive land listing platform with map drawing, measurement tools, and payment integration.
+BhuDeals is a modern land listing and discovery platform that connects buyers, landowners, and agents through verified listings and premium digital services. Built with transparency, clarity, and ease to revolutionize land exploration.
 
-## Features
+## Business Model
 
-- **Admin Land Entry**: Draw land boundaries directly on Google Maps with real-time area calculation
-- **Search with Measurements**: Distance, radius, and area measurement tools
-- **Public Listings**: Browse lands with static map previews
-- **Paid Access**: Subscribe or purchase individual land details for full information
-- **Interactive Maps**: Full Google Maps integration with exact boundaries for paid users
-- **Secure Authentication**: JWT-based auth with role-based access control and password reset
-- **Payment Integration**: Razorpay for subscriptions and one-time purchases
-- **Email Notifications**: AWS SES for welcome emails, password resets, and payment confirmations
-- **File Storage**: Contabo S3 for photos and documents
+**BhuDeals is a listing and discovery platform only.** We do not participate in property transactions, take commissions, or act as brokers. All interactions, negotiations, and financial dealings are directly between buyers, landowners, and agents.
+
+### Revenue Streams
+
+1. **Premium Listing Boosts** - Enhanced visibility for land listings
+2. **Agent Subscriptions** - Premium tools and features for agents
+3. **Digital Scouting Services** - Custom land requirement matching
+4. **Platform Subscriptions** - Full access to premium features
+
+## Key Features
+
+### For Buyers
+- **Verified Land Information** - Detailed land data with maps and media
+- **Direct Contact** - Connect directly with owners and agents
+- **Advanced Search** - Map-based browsing with filters
+- **Digital Scouting** - Submit requirements for personalized matches
+- **Area Insights** - Development information and location data
+
+### For Landowners
+- **Free Listings** - Post your land at no cost
+- **Verified Buyer Enquiries** - Connect with genuine buyers
+- **Premium Visibility** - Optional listing boost services
+- **Professional Media** - Optional photography services
+- **Direct Communication** - Manage inquiries directly
+
+### For Agents
+- **Unlimited Listings** - Manage multiple properties
+- **Lead Management** - Track and respond to inquiries
+- **Premium Profiles** - Enhanced visibility and branding
+- **Digital Presence** - Professional agent profile pages
+- **WhatsApp Integration** - Quick communication with clients
 
 ## Tech Stack
 
-- **Backend**: Node.js, Express.js
-- **Frontend**: Next.js 14 with App Router, React 18, TypeScript
-- **Styling**: Tailwind CSS
-- **Database**: PostgreSQL with PostGIS extension
-- **Storage**: Contabo S3
-- **Authentication**: JWT
-- **Payment**: Razorpay
-- **Email**: AWS SES
-- **Maps**: Google Maps API
+### Frontend
+- **Next.js 14** - App Router with React 18
+- **TypeScript** - Type-safe development
+- **Tailwind CSS** - Modern, responsive design
+- **Google Maps API** - Interactive maps and drawing tools
+- **Lucide React** - Beautiful icons
 
-## Prerequisites
+### Backend
+- **Node.js & Express** - RESTful API server
+- **PostgreSQL** - Relational database with PostGIS
+- **JWT Authentication** - Secure user authentication
+- **Multer** - File upload handling
+- **AWS S3** - Media storage
+- **AWS SES** - Email notifications
+- **Razorpay** - Payment processing
 
-- Node.js 18+ and npm
-- PostgreSQL 14+ with PostGIS extension
-- Contabo Server with PostgreSQL and S3 configured
-- Google Maps API key
-- Razorpay account
-- AWS account with SES configured
+### Infrastructure
+- **PM2** - Process management
+- **Nginx** - Reverse proxy and load balancing
+- **Contabo** - Server hosting
+- **Let's Encrypt** - SSL certificates
+
+## Land Categories
+
+- Agricultural Lands
+- Farm Lands
+- Residential Open Plots
+- Venture Plots
+- Commercial Lands
+- Industrial/Logistics Lands
+- Highway-Adjacent Properties
+- Investment-Grade Lands
+- Farmhouse Sites
 
 ## Installation
 
-### 1. Clone and Install Dependencies
+### Prerequisites
 
-\`\`\`bash
+- Node.js 18+ and npm
+- PostgreSQL 14+ with PostGIS extension
+- AWS account (S3 & SES)
+- Google Maps API key
+- Razorpay account
+- Server access (Contabo or similar)
+
+### 1. Clone and Install
+
+```bash
+# Install root dependencies
 npm install
-\`\`\`
 
-### 2. Configure Environment Variables
+# Install frontend dependencies
+cd frontend
+npm install
+```
 
-Update the \`.env\` file with your actual credentials:
+### 2. Environment Variables
 
-\`\`\`env
-# Database - Your Contabo PostgreSQL
-DB_HOST=your_contabo_ip
+Create a `.env` file in the root directory:
+
+```env
+# Database Configuration
+DB_HOST=your_database_host
 DB_PORT=5432
-DB_NAME=land_listings
+DB_NAME=bhudeals
 DB_USER=your_db_user
 DB_PASSWORD=your_db_password
 
-# JWT Secret - Generate a strong random string
-JWT_SECRET=your_jwt_secret_key_here
+# JWT Secret
+JWT_SECRET=your_secure_jwt_secret
 
-# Contabo S3 Configuration
-S3_ENDPOINT=your_contabo_s3_endpoint
+# AWS S3 Configuration
+S3_ENDPOINT=your_s3_endpoint
 S3_ACCESS_KEY_ID=your_s3_access_key
 S3_SECRET_ACCESS_KEY=your_s3_secret_key
-S3_BUCKET_NAME=land-listings
+S3_BUCKET_NAME=bhudeals-media
 
 # Google Maps API Key
 GOOGLE_MAPS_API_KEY=your_google_maps_api_key
@@ -73,224 +124,153 @@ RAZORPAY_KEY_SECRET=your_razorpay_key_secret
 
 # AWS SES Configuration
 AWS_SES_REGION=us-east-1
-AWS_SES_ACCESS_KEY_ID=your_aws_ses_access_key
-AWS_SES_SECRET_ACCESS_KEY=your_aws_ses_secret_key
-AWS_SES_FROM_EMAIL=noreply@yourdomain.com
-\`\`\`
+AWS_SES_ACCESS_KEY_ID=your_ses_access_key
+AWS_SES_SECRET_ACCESS_KEY=your_ses_secret_key
+AWS_SES_FROM_EMAIL=noreply@bhudeals.com
 
-### 3. Setup Database
+# Server Configuration
+PORT=3000
+NODE_ENV=production
+```
 
-Connect to your PostgreSQL database on Contabo and run:
+### 3. Database Setup
 
-\`\`\`bash
-psql -U your_db_user -d land_listings -f backend/database/schema.sql
-\`\`\`
+```bash
+# Connect to PostgreSQL
+psql -U postgres
 
-This will:
-- Enable PostGIS extension
-- Create all necessary tables
-- Set up indexes for performance
-- Create a default admin user (email: admin@example.com, password: admin123)
+# Create database
+CREATE DATABASE bhudeals;
 
-**Important**: Change the default admin password after first login!
+# Connect to database
+\c bhudeals
 
-### 4. Update Google Maps API Key
-
-Replace \`YOUR_GOOGLE_MAPS_API_KEY\` in these files with your actual API key:
-- \`frontend/pages/admin-land-form.html\`
-- \`frontend/pages/search.html\`
-- \`frontend/pages/land-detail.html\`
-
-### 5. Run Locally
-
-\`\`\`bash
-npm start
-\`\`\`
-
-The application will be available at http://localhost:3000
-
-## Deployment on Contabo
-
-### 1. Install Required Software on Contabo
-
-\`\`\`bash
-# Update system
-sudo apt update && sudo apt upgrade -y
-
-# Install Node.js
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
-sudo apt install -y nodejs
-
-# Install PostgreSQL with PostGIS
-sudo apt install -y postgresql postgresql-contrib postgis
-
-# Install Nginx
-sudo apt install -y nginx
-
-# Install PM2 globally
-sudo npm install -g pm2
-\`\`\`
-
-### 2. Setup PostgreSQL
-
-\`\`\`bash
-# Switch to postgres user
-sudo -u postgres psql
-
-# Create database and user
-CREATE DATABASE land_listings;
-CREATE USER your_db_user WITH PASSWORD 'your_secure_password';
-GRANT ALL PRIVILEGES ON DATABASE land_listings TO your_db_user;
+# Enable PostGIS extension
+CREATE EXTENSION postgis;
 
 # Exit psql
-\\q
+\q
 
-# Enable PostGIS and run schema
-sudo -u postgres psql -d land_listings -c "CREATE EXTENSION postgis;"
-psql -U your_db_user -d land_listings -f backend/database/schema.sql
-\`\`\`
+# Run schema
+psql -U your_db_user -d bhudeals -f backend/database/schema.sql
+```
 
-### 3. Deploy Application
+### 4. Development
 
-\`\`\`bash
-# Clone or upload your application to Contabo
-cd /var/www/land-listings
+```bash
+# Run both frontend and backend
+npm run dev
 
-# Install dependencies
-npm install --production
+# Run backend only
+npm run dev:backend
+
+# Run frontend only
+npm run dev:frontend
+
+# Build frontend
+npm run build
+```
+
+The application will be available at:
+- Frontend: http://localhost:3001
+- Backend API: http://localhost:3000
+
+### 5. Production Deployment
+
+```bash
+# Build frontend
+cd frontend
+npm run build
 
 # Start with PM2
 pm2 start ecosystem.config.js
 
-# Save PM2 process list
+# Save PM2 configuration
 pm2 save
 
-# Setup PM2 to start on boot
+# Setup PM2 startup
 pm2 startup
-\`\`\`
-
-### 4. Configure Nginx
-
-\`\`\`bash
-# Copy nginx configuration
-sudo cp nginx.conf /etc/nginx/sites-available/land-listings
-
-# Create symbolic link
-sudo ln -s /etc/nginx/sites-available/land-listings /etc/nginx/sites-enabled/
-
-# Test nginx configuration
-sudo nginx -t
-
-# Restart nginx
-sudo systemctl restart nginx
-\`\`\`
-
-### 5. Setup SSL with Let's Encrypt
-
-\`\`\`bash
-# Install certbot
-sudo apt install -y certbot python3-certbot-nginx
-
-# Obtain SSL certificate
-sudo certbot --nginx -d yourdomain.com -d www.yourdomain.com
-
-# Certbot will automatically configure nginx for SSL
-\`\`\`
-
-### 6. Setup AWS SES
-
-Before deploying, configure AWS SES:
-
-1. **Create AWS Account & Access SES Console**
-   - Go to AWS Console → Simple Email Service (SES)
-
-2. **Verify Your Domain**
-   - Navigate to "Verified identities"
-   - Click "Create identity" → Select "Domain"
-   - Add your domain and follow DNS verification steps
-
-3. **Verify From Email Address**
-   - Add the email address you'll use as sender (e.g., noreply@yourdomain.com)
-   - Click verification link sent to that email
-
-4. **Move Out of Sandbox Mode**
-   - By default, SES is in sandbox mode (can only send to verified emails)
-   - Request production access: SES Console → Account Dashboard → Request production access
-   - Fill out the form explaining your use case
-
-5. **Create IAM User for SES**
-   - Go to IAM Console → Users → Create user
-   - Attach policy: `AmazonSESFullAccess`
-   - Create access keys and save them
-
-6. **Update Environment Variables**
-   - Add the IAM user credentials to your `.env` file
-   - Set the verified from email address
-
-7. **Test Email Sending**
-   ```bash
-   # After deployment, test with user registration
-   # Welcome emails will be sent automatically
-   ```
-
-### 7. Setup Firewall
-
-\`\`\`bash
-sudo ufw allow 22/tcp
-sudo ufw allow 80/tcp
-sudo ufw allow 443/tcp
-sudo ufw enable
-\`\`\`
+```
 
 ## Project Structure
 
-\`\`\`
-project/
+```
+bhudeals/
 ├── backend/
-│   ├── config/          # Database and S3 configuration
-│   ├── controllers/     # Request handlers
-│   ├── middleware/      # Auth and upload middleware
-│   ├── models/          # Database models
-│   ├── routes/          # API routes
-│   ├── utils/           # Helper functions
-│   ├── database/        # SQL schema
-│   └── server.js        # Express server
+│   ├── config/              # Configuration files
+│   │   ├── database.js      # PostgreSQL connection
+│   │   ├── s3.js           # AWS S3 setup
+│   │   └── ses.js          # AWS SES setup
+│   ├── controllers/         # Request handlers
+│   │   ├── authController.js
+│   │   ├── landController.js
+│   │   ├── paymentController.js
+│   │   └── uploadController.js
+│   ├── middleware/          # Express middleware
+│   │   ├── auth.js         # JWT authentication
+│   │   └── upload.js       # File upload handling
+│   ├── routes/             # API routes
+│   │   ├── authRoutes.js
+│   │   ├── landRoutes.js
+│   │   ├── paymentRoutes.js
+│   │   └── uploadRoutes.js
+│   ├── utils/              # Helper functions
+│   │   ├── areaConversion.js
+│   │   └── validators.js
+│   ├── database/           # Database schema
+│   │   └── schema.sql
+│   └── server.js           # Express application
 ├── frontend/
-│   ├── css/            # Stylesheets
-│   ├── js/             # JavaScript modules
-│   ├── pages/          # HTML pages
-│   └── assets/         # Static assets
-├── .env                # Environment variables
-├── ecosystem.config.js # PM2 configuration
-└── nginx.conf          # Nginx configuration
-\`\`\`
+│   ├── app/                # Next.js app directory
+│   │   ├── admin/         # Admin pages
+│   │   ├── land/          # Land detail pages
+│   │   ├── layout.jsx     # Root layout
+│   │   ├── page.jsx       # Home page
+│   │   ├── globals.css    # Global styles
+│   │   ├── login/
+│   │   ├── register/
+│   │   └── search/
+│   ├── components/         # React components
+│   │   ├── MapDrawing.tsx
+│   │   └── Navbar.jsx
+│   └── lib/               # Utilities
+│       ├── api.ts         # API client
+│       ├── area-calculator.ts
+│       └── auth-context.jsx
+├── .env                    # Environment variables
+├── .gitignore             # Git ignore rules
+├── ecosystem.config.js    # PM2 configuration
+├── nginx.conf             # Nginx configuration
+├── package.json           # Project dependencies
+└── README.md              # This file
+```
 
 ## API Endpoints
 
 ### Authentication
-- POST \`/api/auth/register\` - Register new user
-- POST \`/api/auth/login\` - Login user
-- GET \`/api/auth/verify\` - Verify JWT token
-- GET \`/api/auth/subscription-status\` - Get subscription status
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/login` - Login user
+- `GET /api/auth/verify` - Verify JWT token
+- `GET /api/auth/subscription-status` - Get subscription status
 
 ### Lands
-- GET \`/api/lands\` - Get all lands (public)
-- GET \`/api/lands/:id\` - Get land basic details
-- GET \`/api/lands/:id/full\` - Get full land details (requires auth)
-- GET \`/api/lands/search/radius\` - Search lands by radius
-- POST \`/api/lands\` - Create land (admin/agent only)
-- PUT \`/api/lands/:id\` - Update land (admin/agent only)
-- DELETE \`/api/lands/:id\` - Delete land (admin/agent only)
+- `GET /api/lands` - Get all lands (public)
+- `GET /api/lands/:id` - Get land basic details
+- `GET /api/lands/:id/full` - Get full land details (requires auth)
+- `GET /api/lands/search/radius` - Search lands by radius
+- `POST /api/lands` - Create land (admin/agent only)
+- `PUT /api/lands/:id` - Update land (admin/agent only)
+- `DELETE /api/lands/:id` - Delete land (admin/agent only)
 
 ### Uploads
-- POST \`/api/upload/photos\` - Upload land photos
-- POST \`/api/upload/documents\` - Upload land documents
+- `POST /api/upload/photos` - Upload land photos
+- `POST /api/upload/documents` - Upload land documents
 
 ### Payments
-- POST \`/api/payment/create-subscription\` - Create subscription order
-- POST \`/api/payment/create-site-order\` - Create site purchase order
-- POST \`/api/payment/verify\` - Verify payment
-- GET \`/api/payment/access/:land_id\` - Check land access
+- `POST /api/payment/create-subscription` - Create subscription order
+- `POST /api/payment/create-site-order` - Create site purchase order
+- `POST /api/payment/verify` - Verify payment
+- `GET /api/payment/access/:land_id` - Check land access
 
 ## Area Conversions
 
@@ -304,30 +284,123 @@ The platform uses Telangana standard conversions:
 - Email: admin@example.com
 - Password: admin123
 
-**Change this immediately after first login!**
+**IMPORTANT: Change the default admin password immediately after first login!**
+
+## Color Palette
+
+BhuDeals uses an earth-tone color scheme representing land and nature:
+
+- **Deep Earth Green** (#2F4F32) - Primary brand color
+- **Soil Brown** (#4D3D34) - Secondary text
+- **Teal Dark** (#1F2F36) - Accent dark
+- **Gold Highlight** (#C6AB62) - Premium features & CTAs
+- **Fresh Green** (#90B77D) - Success & highlights
+- **Sand Background** (#F4EFE2) - Page backgrounds
+- **Primary Text** (#111111) - Main text
+- **Secondary Grey** (#707070) - Muted text
+
+## Security & Compliance
+
+### Legal Framework
+- Platform does not participate in transactions
+- No brokerage or commission model
+- All dealings between parties directly
+- Transparent revenue model through digital services
+
+### Data Security
+- JWT-based authentication
+- Password hashing with bcrypt
+- Role-based access control
+- Secure file storage on AWS S3
+- Environment variable protection
+
+### User Privacy
+- Minimal data collection
+- Direct communication between parties
+- No transaction data storage
+- GDPR-compliant design
+
+## Frequently Asked Questions
+
+**Q: Does BhuDeals take commission or brokerage?**
+A: No. BhuDeals does not participate in property transactions. All dealings are strictly between buyers, landowners, and agents.
+
+**Q: How does BhuDeals earn revenue?**
+A: Through premium listing boosts, agent subscriptions, and digital scouting services.
+
+**Q: Can I contact sellers directly?**
+A: Yes, all listings include direct contact details.
+
+**Q: Are land details verified?**
+A: Basic details are cross-checked for accuracy as shared by owners/agents.
+
+**Q: What happens after I contact an agent or owner?**
+A: All communication and transaction steps are handled directly between the concerned parties.
 
 ## Maintenance
 
-### View Logs
-\`\`\`bash
-pm2 logs land-listings
-\`\`\`
+### View Application Logs
+```bash
+pm2 logs bhudeals
+```
 
 ### Restart Application
-\`\`\`bash
-pm2 restart land-listings
-\`\`\`
+```bash
+pm2 restart bhudeals
+```
 
 ### Database Backup
-\`\`\`bash
-pg_dump -U your_db_user land_listings > backup_$(date +%Y%m%d).sql
-\`\`\`
+```bash
+pg_dump -U your_db_user bhudeals > backup_$(date +%Y%m%d).sql
+```
 
 ### Monitor Performance
-\`\`\`bash
+```bash
 pm2 monit
-\`\`\`
+```
+
+### Update Application
+```bash
+git pull origin main
+npm install
+cd frontend && npm install && npm run build
+pm2 restart bhudeals
+```
+
+## Nginx Configuration
+
+The provided `nginx.conf` includes:
+- Reverse proxy to Node.js backend
+- Static file serving for Next.js
+- SSL/TLS configuration
+- Gzip compression
+- Security headers
+- Rate limiting
+
+## Future Enhancements
+
+- Mobile applications (iOS & Android)
+- Advanced analytics for agents
+- AI-powered land recommendations
+- Virtual land tours (360° photos)
+- Multi-language support
+- Chatbot for instant support
+- Integration with land registry systems
+- Advanced filtering options
+- Comparison tools
+- Saved searches and alerts
 
 ## Support
 
-For issues and questions, please refer to the documentation or contact support.
+For technical support, documentation, or business inquiries:
+- Website: https://bhudeals.com
+- Email: support@bhudeals.com
+- Documentation: https://docs.bhudeals.com
+
+## License
+
+Proprietary - All rights reserved
+
+---
+
+**BhuDeals** - Discover Lands. Fast, Verified & Easy.
